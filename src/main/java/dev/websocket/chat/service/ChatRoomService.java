@@ -18,7 +18,6 @@ import java.util.List;
 public class ChatRoomService {
 
     private final ChatRepository chatRepository;
-    private final SimpMessageSendingOperations messagingTemplate;
 
     // 모든 채팅방 조회
     public List<ChatRoom> findAll() {
@@ -32,9 +31,9 @@ public class ChatRoomService {
 
     // 채팅방 생성(name만 받으면 roomId는 내부에서 UUID로 부여)
     public ChatRoom createRoom(String name) {
-        ChatRoom room = ChatRoom.of(name);
-        chatRepository.save(room.getRoomId(), room);
-        log.info("Created room: {} ({})", room.getRoomId(), room.getName());
-        return room;
+        ChatRoom chatRoom = ChatRoom.of(name);
+        chatRepository.save(chatRoom);
+        log.info("Created room: {} ({})", chatRoom.getRoomId(), chatRoom.getName());
+        return chatRoom;
     }
 }
