@@ -1,49 +1,26 @@
 package dev.websocket.chat.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
+import java.util.UUID;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-
+/**
+ * 이제는 STOMP를 사용하여 pub/sub 방식으로 구현되기 때문에 기존에 직접 메세지를 보내던 기능을 제거
+  */
+@Slf4j
 @Getter
+@AllArgsConstructor
+@Builder
 public class ChatRoom {
-    private final String roomId;
-    private final String name;
-    private final Set<WebSocketSession> sessions = new HashSet<>();
+    private String roomId;
+    private String name;
 
-    @Builder
-    public ChatRoom(String roomId, String name) {
-        this.roomId = roomId;
-        this.name = name;
-    }
-
-    public void sendMessage(TextMessage message) {
-        this.getSessions()
-                .parallelStream()
-                .forEach(session -> sendMessageToSession(session, message));
-    }
-
-    private void sendMessageToSession(WebSocketSession session, TextMessage message) {
-        try {
-            session.sendMessage(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void join(WebSocketSession session) {
-        sessions.add(session);
-    }
-
-    public static ChatRoom of(String roomId, String name) {
+    public static ChatRoom of(String name) {
         return ChatRoom.builder()
-                .roomId(roomId)
                 .name(name)
+                .roomId(UUID.randomUUID().toString())
                 .build();
     }
 }

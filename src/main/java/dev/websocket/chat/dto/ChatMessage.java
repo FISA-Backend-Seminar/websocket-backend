@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 public class ChatMessage {
     public enum MessageType {
-        ENTER, TALK
+        ENTER, TALK, JOIN
     }
 
     private MessageType messageType;
