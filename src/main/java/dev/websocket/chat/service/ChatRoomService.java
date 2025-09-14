@@ -1,6 +1,5 @@
 package dev.websocket.chat.service;
 
-import dev.websocket.base.Util;
 import dev.websocket.chat.dto.ChatMessage;
 import dev.websocket.chat.dto.ChatRoom;
 import dev.websocket.chat.repository.ChatRepository;
@@ -11,13 +10,11 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class ChatService {
+public class ChatRoomService {
 
     private final ChatRepository chatRepository;
 
