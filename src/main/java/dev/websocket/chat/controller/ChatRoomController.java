@@ -31,9 +31,9 @@ public class ChatRoomController {
     }
 
     @PostMapping("/room")
-    public String createRoom(@RequestParam String name) { // 파라미터: name
-        chatRoomService.createRoom(name); // 채팅방 생성
-        return "redirect:/chat/rooms"; // 생성 후 바로 채팅방으로 이동
+    @ResponseBody
+    public ChatRoom createRoom(@RequestParam String name) {
+        return chatRoomService.createRoom(name);
     }
 
     @GetMapping("/room/{roomId}")

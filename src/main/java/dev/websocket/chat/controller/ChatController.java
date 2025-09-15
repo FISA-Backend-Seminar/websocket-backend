@@ -24,7 +24,7 @@ public class ChatController {
 
         // /sub/chat/room + roomId를 구독하고 있는 유저에게 메시지를 보냄
         // SimpMessageSendingOperations안에 convertAndSend 메서드가 내장
-        messagingTemplate.convertAndSend("/sub/chat/room" + message.getRoomId(), message);
+        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
     private boolean isJoin(ChatMessage messageType) {

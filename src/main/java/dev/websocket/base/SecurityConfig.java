@@ -34,6 +34,10 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 );
 
+        http
+                .cors(c -> {})
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/ws-stomp/**", "/chat/**")); // dev에선 전면 disable도 OK
+
         return http.build();
     }
 }
